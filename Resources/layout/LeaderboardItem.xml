@@ -12,28 +12,25 @@
         android:layout_height="match_parent"
         android:layout_weight="10"
         android:id="@+id/leaderboard_txtUsername"
-        android:textSize="12dp"
-        android:textAlignment="center"
-        android:textStyle="bold"
+        android:textSize="20dp"
+        android:textAlignment="textStart"
         android:textColor="#ff000000"/>
     <TextView
         android:text="@string/filler"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="10"
+        android:layout_weight="5"
         android:id="@+id/leaderboard_txtWins"
-        android:textSize="12dp"
-        android:textAlignment="center"
-        android:textStyle="bold"
+        android:textSize="20dp"
+        android:textAlignment="textEnd"
         android:textColor="#ff000000"/>
     <TextView
         android:text="@string/filler"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="10"
+        android:layout_weight="5"
         android:id="@+id/leaderboard_txtLoses"
-        android:textSize="12dp"
-        android:textAlignment="center"
-        android:textStyle="bold"
+        android:textSize="20dp"
+        android:textAlignment="textEnd"
         android:textColor="#ff000000"/>
 </LinearLayout>

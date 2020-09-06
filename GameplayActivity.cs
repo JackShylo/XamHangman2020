@@ -15,7 +15,7 @@ using Android.Widget;
 
 namespace XamHangman2020
 {
-    [Activity(Label = "GameplayActivity", Theme = "@style/AppTheme")]
+    [Activity(Label = "Hangman", Theme = "@style/AppTheme")]
     public class GameplayActivity : AppCompatActivity, BottomNavigationView.IOnNavigationItemSelectedListener
     {
         // Keys
@@ -59,13 +59,13 @@ namespace XamHangman2020
         string chosenWord;
         int IncorrectCount;
 
-        List<tblProfile> userData;
+        List<Users> activeUser;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             // Create your application here
-            SetContentView(Resource.Layout.GamePlay);
+            SetContentView(Resource.Layout.activity_gameplay);
 
             Init();
         }
@@ -79,7 +79,7 @@ namespace XamHangman2020
             btnReset = FindViewById<Button>(Resource.Id.btnReset);
             btnReset.Click += btnReset_Click;
 
-            userData = Database.LoadUserProfile();
+            activeUser = Database.LoadActiveUser();
 
             keyboardInit();
             ResetState();
@@ -298,11 +298,11 @@ namespace XamHangman2020
                     // Enable Reset Button
                     btnReset.Enabled = true;
 
-                    userData[0].loses++;
+                    activeUser[0].loses++;
 
-                    if (userData[0].username != null)
+                    if (activeUser[0].username != null)
                     {
-                        Database.UpdateUserProfile(userData);
+                        Database.UpdateUser(activeUser);
                     }
                     break;
             }
@@ -317,11 +317,16 @@ namespace XamHangman2020
                 // Enable Reset Button
                 btnReset.Enabled = true;
 
-                userData[0].wins++;
+                activeUser[0].wins++;
 
-                if (userData[0].username != null)
+                int tempXP = (12 / (IncorrectCount + 1)) * chosenWord.Length;
+
+                activeUser[0].xp = activeUser[0].xp + tempXP;
+
+
+                if (activeUser[0].username != null)
                 {
-                    Database.UpdateUserProfile(userData);
+                    Database.UpdateUser(activeUser);
                     Toast.MakeText(this, "You Win!", ToastLength.Long).Show();
                 }
             }

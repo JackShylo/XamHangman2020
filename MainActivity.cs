@@ -11,12 +11,13 @@ using System.Collections.Generic;
 
 namespace XamHangman2020
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true, NoHistory = true)]
+    [Activity(Label = "Hangman", Theme = "@style/AppTheme", MainLauncher = true, NoHistory = true)]
     public class MainActivity : AppCompatActivity, BottomNavigationView.IOnNavigationItemSelectedListener
     {
         Button btnPlay;
         EditText txtUsername;
-        List<tblProfile> userData;
+
+        List<Users> activeUser;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -24,10 +25,11 @@ namespace XamHangman2020
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
 
             // If UserProfile exists, send them straight to the GamePlay, otherwise create account here.
-            userData = Database.LoadUserProfile();
-            if (userData.Count == 0)
+            activeUser = Database.LoadActiveUser();
+
+            if (activeUser.Count == 0)
             {
-                SetContentView(Resource.Layout.HomePage);
+                SetContentView(Resource.Layout.activity_home);
                 Init();
             }
             else

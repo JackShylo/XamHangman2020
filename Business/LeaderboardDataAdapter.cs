@@ -12,19 +12,19 @@ using Android.Widget;
 
 namespace XamHangman2020
 {
-    class LeaderboardDataAdapter : BaseAdapter<tblLeaderboard>
+    class LeaderboardDataAdapter : BaseAdapter<Users>
     {
         private readonly Activity context;
-        private readonly List<tblLeaderboard> items;
+        private readonly List<Users> items;
 
-        public LeaderboardDataAdapter(Activity context, List<tblLeaderboard> items)
+        public LeaderboardDataAdapter(Activity context, List<Users> items)
         {
             this.context = context;
             this.items = items;
         }
 
 
-        public override tblLeaderboard this[int position]
+        public override Users this[int position]
         {
             get { return items[position]; }
         }
@@ -49,9 +49,9 @@ namespace XamHangman2020
             if (view == null)
             {// no view to re-use, create new
                 view = context.LayoutInflater.Inflate(Resource.Layout.LeaderboardItem, null);
-                view.FindViewById<TextView>(Resource.Id.leaderboard_txtUsername).Text = $@"{item.Username}";
-                view.FindViewById<TextView>(Resource.Id.leaderboard_txtWins).Text = $@"{item.Wins}";
-                view.FindViewById<TextView>(Resource.Id.leaderboard_txtLoses).Text = $@"{item.Loses}";
+                view.FindViewById<TextView>(Resource.Id.leaderboard_txtUsername).Text = $@"{item.username}";
+                view.FindViewById<TextView>(Resource.Id.leaderboard_txtWins).Text = $@"{item.wins}";
+                view.FindViewById<TextView>(Resource.Id.leaderboard_txtLoses).Text = $@"{item.loses}";
             }
             return view;
         }

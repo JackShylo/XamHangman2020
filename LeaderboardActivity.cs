@@ -14,16 +14,16 @@ using Android.Widget;
 
 namespace XamHangman2020
 {
-    [Activity(Label = "LeaderboardActivity", Theme = "@style/AppTheme")]
+    [Activity(Label = "Leaderboards", Theme = "@style/AppTheme")]
     public class LeaderboardActivity : AppCompatActivity, BottomNavigationView.IOnNavigationItemSelectedListener
     {
         private ListView lstLeaderboard;
-        private List<tblLeaderboard> myList;
+        private List<Users> myList;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            SetContentView(Resource.Layout.Leaderboard);
+            SetContentView(Resource.Layout.activity_leaderboard);
 
             Init();
         }
@@ -32,7 +32,7 @@ namespace XamHangman2020
         {
             lstLeaderboard = FindViewById<ListView>(Resource.Id.lstLeaderboard);
 
-            myList = Database.ViewTable();
+            myList = Database.LoadUsers();
             var dataAdapter = new LeaderboardDataAdapter(this, myList);
             lstLeaderboard.Adapter = dataAdapter;
 

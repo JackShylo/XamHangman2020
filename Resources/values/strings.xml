@@ -39,6 +39,7 @@
   <string name="x">x</string>
   <string name="y">y</string>
   <string name="z">z</string>
+  <string name="space"></string>
   <string name="reset">Reset</string>
 
   <string name="leaderboard_name">NAME</string>

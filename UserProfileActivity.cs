@@ -7,13 +7,15 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.Design.Widget;
+using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 
 namespace XamHangman2020
 {
-    [Activity(Label = "UserProfileActivity", Theme = "@style/AppTheme")]
-    public class UserProfileActivity : Activity
+    [Activity(Label = "Profile", Theme = "@style/AppTheme")]
+    public class UserProfileActivity : AppCompatActivity, BottomNavigationView.IOnNavigationItemSelectedListener
     {
         TextView Name;
         TextView Coins;
@@ -21,12 +23,13 @@ namespace XamHangman2020
         TextView Wins;
         TextView Loses;
 
-        List<tblProfile> userData;
+        List<Users> activeUser;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            SetContentView(Resource.Layout.UserProfile);
+            SetContentView(Resource.Layout.activity_localprofile);
 
             // Create your application here
             Init();
@@ -39,13 +42,36 @@ namespace XamHangman2020
             Wins = FindViewById<TextView>(Resource.Id.txtUserProfile_Wins);
             Loses = FindViewById<TextView>(Resource.Id.txtUserProfile_Loses);
 
-            userData = Database.LoadUserProfile();
+            activeUser = Database.LoadActiveUser();
 
-            Name.Text = userData[0].username;
-            Coins.Text = userData[0].coins.ToString();
-            XP.Text = userData[0].xp.ToString();
-            Wins.Text = userData[0].wins.ToString();
-            Loses.Text = userData[0].loses.ToString();
+            if (activeUser.Count != 0)
+            {
+                Name.Text = activeUser[0].username;
+                Coins.Text = activeUser[0].coins.ToString();
+                XP.Text = activeUser[0].xp.ToString();
+                Wins.Text = activeUser[0].wins.ToString();
+                Loses.Text = activeUser[0].loses.ToString();
+            }
+
+            BottomNavigationView navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
+            navigation.SetOnNavigationItemSelectedListener(this);
+        }
+
+        public bool OnNavigationItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Resource.Id.navigation_play:
+                    StartActivity(typeof(MainActivity));
+                    return true;
+                case Resource.Id.navigation_leaderboard:
+                    StartActivity(typeof(LeaderboardActivity));
+                    return true;
+                case Resource.Id.navigation_profile:
+                    StartActivity(typeof(UserProfileActivity));
+                    return true;
+            }
+            return false;
         }
     }
 }
